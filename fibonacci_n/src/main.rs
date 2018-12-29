@@ -10,7 +10,7 @@ const AUTHORS: &'static str = env!("CARGO_PKG_AUTHORS");
 
 fn main() {
     //learned about clap from https://mattgathu.github.io/writing-cli-app-rust/
-    let matches = App::new("fibonacci_m")
+    let matches = App::new("fibonacci_n")
         .version(VERSION)
         .author(AUTHORS)
         .about("Fibonacci Calculator written in Rust")
