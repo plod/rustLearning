@@ -1,0 +1,8 @@
+[package]
+name = "kubia"
+version = "0.1.1"
+authors = ["Daniel Morgan <daniel.morgan@devopsgroup.com>"]
+edition = "2018"
+
+[dependencies]
+whoami = "0.4.1"
