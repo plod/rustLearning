@@ -2,6 +2,7 @@ use std::net::{TcpStream, TcpListener};
 use std::io::{Read, Write};
 use std::thread;
 
+use chrono::Utc;
 use whoami;
 
 
@@ -17,11 +18,16 @@ fn handle_read(mut stream: &TcpStream) {
 }
 
 fn handle_write(mut stream: TcpStream) {
+    let request_ts = Utc::now().timestamp();
+    let mut status_code = "200";
+    if request_ts % 5 == 0 {
+        status_code = "500";
+    }
     let hostname = whoami::hostname();
-    let response = format!("HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n<html><body>Hello {}</body></html>\r\n", hostname);
+    let response = format!("HTTP/1.1 {} OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n<html><body>Hello {}</body></html>\r\n", status_code, hostname);
     let response = response.as_bytes();
     match stream.write(response) {
-        Ok(_) => println!("Response sent"),
+        Ok(_) => println!("{} Response sent\n", status_code),
         Err(e) => println!("Failed sending response: {}", e),
     }
 }
